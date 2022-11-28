@@ -1,6 +1,6 @@
 from typing import Union
 from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageDraw
 
 """
 Punkt (0, 0) Gorny Lewy Róg!!!
@@ -12,9 +12,9 @@ DO ZROBIENIA:
 SAMPLE = Path(__file__).parent / 'legitymacja_wzor.jpg'
 SAMPLE_FACE = Path(__file__).parent / 'escobar.jpg'
 HEIGHT_FACE, WIDTH_FACE = 124, 100
-COLUMN1 = 79, 178
-COLUMN2 = 79, 190
-COLUMN3 = 79, 202
+COLUMN1 = 79, 174
+COLUMN2 = 79, 188
+COLUMN3 = 79, 200
 IMAGE_FIELD_UL = 281, 115
 IMAGE_FIELD_LL = 281, 115 + HEIGHT_FACE
 IMAGE_FIELD_UR = 281 + WIDTH_FACE, 115
@@ -32,8 +32,22 @@ def paste_in_image(image: Union[str, Path], face: Union[str, Path]):
     im1 = Image.open(image1)
     im2 = get_resized_face(Path(face))
     im1.paste(im2, IMAGE_FIELD_UL)
-    im1.show()
+    return im1
+
+
+def add_text(image: Image, col1: str, col2: str, col3: str):
+    im_draw = ImageDraw.Draw(image)
+    im_draw.text(COLUMN1, col1, fill=(0, 0, 0))
+    im_draw.text(COLUMN2, col2, fill=(0, 0, 0))
+    im_draw.text(COLUMN3, col3, fill=(0, 0, 0))
+    image.show()
 
 
 if __name__ == '__main__':
-    paste_in_image(SAMPLE, SAMPLE_FACE)
+    # paste_in_image(SAMPLE, SAMPLE_FACE)
+    add_text(
+        paste_in_image(SAMPLE, SAMPLE_FACE),
+        'Yo',
+        'What\'s Up',
+        'wrehfghjfghgf'
+    )
