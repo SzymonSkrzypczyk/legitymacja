@@ -1,6 +1,6 @@
 from typing import Union
 from pathlib import Path
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 """
 Punkt (0, 0) Gorny Lewy Róg!!!
@@ -11,6 +11,7 @@ DO ZROBIENIA:
 """
 SAMPLE = Path(__file__).parent / 'legitymacja_wzor.jpg'
 SAMPLE_FACE = Path(__file__).parent / 'escobar.jpg'
+FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-VariableFont_wght.ttf'
 HEIGHT_FACE, WIDTH_FACE = 124, 100
 COLUMN1 = 79, 174
 COLUMN2 = 79, 188
@@ -37,9 +38,10 @@ def paste_in_image(image: Union[str, Path], face: Union[str, Path]):
 
 def add_text(image: Image, col1: str, col2: str, col3: str):
     im_draw = ImageDraw.Draw(image)
-    im_draw.text(COLUMN1, col1, fill=(0, 0, 0))
-    im_draw.text(COLUMN2, col2, fill=(0, 0, 0))
-    im_draw.text(COLUMN3, col3, fill=(0, 0, 0))
+    my_font = ImageFont.truetype(str(FONT_FILE), 9)
+    im_draw.text(COLUMN1, col1, fill=(0, 0, 0), font=my_font)
+    im_draw.text(COLUMN2, col2, fill=(0, 0, 0), font=my_font)
+    im_draw.text(COLUMN3, col3, fill=(0, 0, 0), font=my_font)
     image.show()
 
 
