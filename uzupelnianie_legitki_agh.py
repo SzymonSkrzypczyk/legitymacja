@@ -1,4 +1,5 @@
 from typing import Union
+from configparser import ConfigParser
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
@@ -9,9 +10,12 @@ DO ZROBIENIA:
     2) dopasowac obrazek V
     3) zrobic napisy V
     4) ustawic imie i nazwisko V
-    5) dopracowac obraz X
+    5) dopracowac obraz V
     6) dodac AGH V
+    7) stale do configparsera X
 """
+config = ConfigParser()
+config.read(Path(__file__).parent / 'constants.ini')
 SAMPLE = Path(__file__).parent / 'legitymacja_wzor.jpg'
 SAMPLE_FACE = Path(__file__).parent / 'escobar.jpg'
 FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-VariableFont_wght.ttf'
