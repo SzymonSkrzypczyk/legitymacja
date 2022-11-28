@@ -25,3 +25,15 @@ def get_resized_face(face: Union[str, Path]):
     face = Path(face)
     im = Image.open(face)
     return im.resize((WIDTH_FACE, HEIGHT_FACE))
+
+
+def paste_in_image(image: Union[str, Path], face: Union[str, Path]):
+    image1 = Path(image)
+    im1 = Image.open(image1)
+    im2 = get_resized_face(Path(face))
+    im1.paste(im2, IMAGE_FIELD_UL)
+    im1.show()
+
+
+if __name__ == '__main__':
+    paste_in_image(SAMPLE, SAMPLE_FACE)
