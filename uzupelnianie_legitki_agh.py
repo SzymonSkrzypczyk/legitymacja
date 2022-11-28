@@ -10,11 +10,12 @@ DO ZROBIENIA:
     3) zrobic napisy V
     4) ustawic imie i nazwisko V
     5) dopracowac obraz X
-    6) dodac AGH X
+    6) dodac AGH V
 """
 SAMPLE = Path(__file__).parent / 'legitymacja_wzor.jpg'
 SAMPLE_FACE = Path(__file__).parent / 'escobar.jpg'
 FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-VariableFont_wght.ttf'
+BOLD_FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-Bold.ttf'
 HEIGHT_FACE, WIDTH_FACE = 124, 100
 COLUMN1 = 79, 174
 COLUMN2 = 79, 186
@@ -24,6 +25,7 @@ IMAGE_FIELD_LL = 281, 115 + HEIGHT_FACE
 IMAGE_FIELD_UR = 281 + WIDTH_FACE, 115
 IMAGE_FIELD_LR = 281 + WIDTH_FACE, 115 + HEIGHT_FACE
 OFFSET = 2
+UNIVERSITY = 228, 30
 
 
 def get_resized_face(face: Union[str, Path]):
@@ -41,6 +43,7 @@ def paste_in_image(image: Union[str, Path], face: Union[str, Path]):
 
 
 def add_text(image: Image, col1: str, col2: str, col3: str, name: str):
+    image = add_university(image)
     im_draw = ImageDraw.Draw(image)
     my_font = ImageFont.truetype(str(FONT_FILE), 9)
     second_font = ImageFont.truetype(str(FONT_FILE), 12)
@@ -51,8 +54,21 @@ def add_text(image: Image, col1: str, col2: str, col3: str, name: str):
                   image.size[1] // 2 - len(name) * OFFSET),
                  '\n'.join(name.split(' ')),
                  fill=(0, 0, 0),
-                 font=second_font)
+                 font=second_font,
+                 align='center')
     image.show()
+
+
+def add_university(image: Image):
+    im_draw = ImageDraw.Draw(image)
+    my_font = ImageFont.truetype(str(BOLD_FONT_FILE), 9)
+    text = 'Akademia Górniczo-Hutnicza\nim. St. Staszica\nw Krakowie'
+    im_draw.text((UNIVERSITY[0] - len(text), UNIVERSITY[1]),
+                 text,
+                 fill=(0, 0, 0),
+                 font=my_font,
+                 align='right')
+    return image
 
 
 if __name__ == '__main__':
@@ -62,5 +78,5 @@ if __name__ == '__main__':
         'Yo',
         'What\'s Up',
         'wrehfghjfghgf',
-        'Twoja Stara'
+        'Ktos napewno'
     )
