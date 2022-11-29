@@ -38,22 +38,25 @@ CHIP_UL = 44, 75
 CHIP_LR = 102, 113
 
 
-def get_resized_face(face: Union[str, Path]):
+class NotAFileError(FileExistsError):
+    ...
+
+
+def _get_resized_face(face: Union[str, Path]):
     face = Path(face)
     im = Image.open(face)
     return im.resize((WIDTH_FACE, HEIGHT_FACE))
 
 
-def paste_in_image(image: Union[str, Path], face: Union[str, Path]):
+def _paste_in_image(image: Union[str, Path], face: Union[str, Path]):
     image1 = Path(image)
     im1 = Image.open(image1)
-    im2 = get_resized_face(Path(face))
+    im2 = _get_resized_face(Path(face))
     im1.paste(im2, IMAGE_FIELD_UL)
     return im1
 
 
-def add_text(image: Image, col1: str, col2: str, col3: str, name: str):
-    image = add_university(image)
+def _add_text(image: Image, col1: str, col2: str, col3: str, name: str):
     im_draw = ImageDraw.Draw(image)
     my_font = ImageFont.truetype(str(FONT_FILE), 9)
     second_font = ImageFont.truetype(str(FONT_FILE), 12)
@@ -70,7 +73,7 @@ def add_text(image: Image, col1: str, col2: str, col3: str, name: str):
     return image
 
 
-def add_university(image: Image):
+def _add_university(image: Image):
     im_draw = ImageDraw.Draw(image)
     my_font = ImageFont.truetype(str(BOLD_FONT_FILE), 9)
     text = 'Akademia Górniczo-Hutnicza\nim. St. Staszica\nw Krakowie'
@@ -82,20 +85,34 @@ def add_university(image: Image):
     return image
 
 
-def add_chip(image: Image):
+def _add_chip(image: Image):
     chip = Image.open(CHIP_IMAGE)
     chip = chip.resize((CHIP_LR[0] - CHIP_UL[0], CHIP_LR[1] - CHIP_UL[1]))
     image.paste(chip, CHIP_UL)
     image.show()
 
 
+def front_page(image: Union[str, Path], face: Union[str, Path], col1: str, col2: str, col3: str, name: str):
+    image = Path(image)
+    face = Path(face)
+    if not image.is_file():
+        raise NotAFileError('Image is not a file') from None
+    if not face.is_file():
+        raise NotAFileError('Face is not a file') from None
+    image = _paste_in_image(image, face)
+    image = _add_university(image)
+    image = _add_text(image, col1, col2, col3, name)
+    return image
+
+
 if __name__ == '__main__':
     # paste_in_image(SAMPLE, SAMPLE_FACE)
-    _im = add_text(
-        paste_in_image(SAMPLE, SAMPLE_FACE),
+    _im = front_page(
+        SAMPLE,
+        SAMPLE_FACE,
         'Yo',
         'What\'s Up',
         'wrehfghjfghgf',
         'Ktos napewno'
     )
-    add_chip(_im)
+    _im.show()
