@@ -19,9 +19,9 @@ DO ZROBIENIA:
 """
 config = ConfigParser()
 config.read(Path(__file__).parent / 'constants.ini')
-SAMPLE = Path(__file__).parent / 'legitymacja_wzor.jpg'
-SAMPLE_FACE = Path(__file__).parent / 'escobar.jpg'
-CHIP_IMAGE = Path(__file__).parent / 'chip.png'
+SAMPLE = Path(__file__).parent / 'images' / 'legitymacja_wzor.jpg'
+SAMPLE_FACE = Path(__file__).parent / 'images' / 'escobar.jpg'
+CHIP_IMAGE = Path(__file__).parent / 'images' / 'chip.png'
 FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-VariableFont_wght.ttf'
 BOLD_FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-Bold.ttf'
 HEIGHT_FACE, WIDTH_FACE = 124, 100
