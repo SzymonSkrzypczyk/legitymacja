@@ -36,6 +36,9 @@ def place_sticker(im: Image, sticker: Union[str, Path], row: int = 0, col: int =
 
 
 def process_stickers(image: Union[str, Path], stickers: Iterable[Union[str, Path]]):
+    """
+    Zla ilosc kolumn i rzedow!
+    """
     image = Path(image)
     image = Image.open(image)
     col = 0
@@ -52,4 +55,4 @@ def process_stickers(image: Union[str, Path], stickers: Iterable[Union[str, Path
 
 if __name__ == '__main__':
     # place_sticker(SAMPLE, SAMPLE_STICKER, 1, 2)
-    process_stickers(SAMPLE, 7 * [SAMPLE_STICKER])
+    process_stickers(SAMPLE, 9 * [SAMPLE_STICKER])
