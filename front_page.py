@@ -89,7 +89,7 @@ def _add_chip(image: Image):
     chip = Image.open(CHIP_IMAGE)
     chip = chip.resize((CHIP_LR[0] - CHIP_UL[0], CHIP_LR[1] - CHIP_UL[1]))
     image.paste(chip, CHIP_UL)
-    image.show()
+    return image
 
 
 def front_page(image: Union[str, Path], face: Union[str, Path], col1: str, col2: str, col3: str, name: str):
@@ -101,6 +101,7 @@ def front_page(image: Union[str, Path], face: Union[str, Path], col1: str, col2:
         raise NotAFileError('Face is not a file') from None
     image = _paste_in_image(image, face)
     image = _add_university(image)
+    image = _add_chip(image)
     image = _add_text(image, col1, col2, col3, name)
     return image
 
