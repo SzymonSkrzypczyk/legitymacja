@@ -1,13 +1,14 @@
-from typing import Union
+from typing import Union, Iterable
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 
 """
 Do zrobienia:
 1) okreslenie lokalizacji pol na naklejki V
-2.1) dopasowanie naklejek X
-2.2) obliczanie miejsc na naklejki X
-2.3) zmiana rozmiaru naklejek X
+2.1) dopasowanie naklejek V
+2.2) obliczanie miejsc na naklejki V
+2.3) zmiana rozmiaru naklejek V
+3) przetwarzanie wielu naklejek X
 """
 
 SAMPLE = Path(__file__).parent / 'images' / 'tyl_legitka.jpeg'
@@ -24,24 +25,31 @@ def _resize_sticker(sticker: Union[str, Path]):
     return im
 
 
-def place_sticker(image: Union[str, Path], sticker: Union[str, Path], index: int = 1):
-    image = Path(image)
+def place_sticker(im: Image, sticker: Union[str, Path], row: int = 0, col: int = 0):
     sticker = Path(sticker)
     sticker = _resize_sticker(sticker)
     # sticker.show()
-    im = Image.open(image)
-    col = index % 3 - 1
-    if index <= 3:
-        row = 0
-    elif 3 < index <= 6:
-        row = 1
-    else:
-        row = 2
     im.paste(sticker,
-             (FIRST_FIELD_UL[0] + FIELD_X_OFFSET * col, FIRST_FIELD_UL[1] + FIELD_Y_OFFSET * row),
-             )
-    im.show()
+             (FIRST_FIELD_UL[0] + (col % 3) * FIELD_X_OFFSET,
+              FIRST_FIELD_UL[1] + (row % 3) * FIELD_Y_OFFSET))
+    return im
+
+
+def process_stickers(image: Union[str, Path], stickers: Iterable[Union[str, Path]]):
+    image = Path(image)
+    image = Image.open(image)
+    col = 0
+    row = 1
+    for ind, i in enumerate(stickers, 1):
+        sticker = Path(i)
+        image = place_sticker(image, sticker, row, col)
+        if ind % 3 == 0:
+            col += 1
+        row += 1
+        row %= 3
+    image.show()
 
 
 if __name__ == '__main__':
-    place_sticker(SAMPLE, SAMPLE_STICKER, 7)
+    # place_sticker(SAMPLE, SAMPLE_STICKER, 1, 2)
+    process_stickers(SAMPLE, 7 * [SAMPLE_STICKER])
