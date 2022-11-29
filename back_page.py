@@ -39,14 +39,14 @@ def process_stickers(image: Union[str, Path], stickers: Iterable[Union[str, Path
     image = Path(image)
     image = Image.open(image)
     col = 0
-    row = 1
-    for ind, i in enumerate(stickers, 1):
+    row = 0
+    for ind, i in enumerate(stickers, 0):
         sticker = Path(i)
         image = place_sticker(image, sticker, row, col)
-        if ind % 3 == 0:
+        if ind % 2 == 0:
             col += 1
         row += 1
-        row %= 3
+        row %= 2
     image.show()
 
 
