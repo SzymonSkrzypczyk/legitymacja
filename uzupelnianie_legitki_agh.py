@@ -13,23 +13,29 @@ DO ZROBIENIA:
     5) dopracowac obraz V
     6) dodac AGH V
     7) stale do configparsera X
+    8) chip V
+    9) druga strona X
+    10) poprawienie chipu X
 """
 config = ConfigParser()
 config.read(Path(__file__).parent / 'constants.ini')
 SAMPLE = Path(__file__).parent / 'legitymacja_wzor.jpg'
 SAMPLE_FACE = Path(__file__).parent / 'escobar.jpg'
+CHIP_IMAGE = Path(__file__).parent / 'chip.png'
 FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-VariableFont_wght.ttf'
 BOLD_FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-Bold.ttf'
 HEIGHT_FACE, WIDTH_FACE = 124, 100
-COLUMN1 = 79, 174
+COLUMN1 = 79, 173
 COLUMN2 = 79, 186
-COLUMN3 = 79, 199
+COLUMN3 = 79, 200
 IMAGE_FIELD_UL = 281, 115
 IMAGE_FIELD_LL = 281, 115 + HEIGHT_FACE
 IMAGE_FIELD_UR = 281 + WIDTH_FACE, 115
 IMAGE_FIELD_LR = 281 + WIDTH_FACE, 115 + HEIGHT_FACE
 OFFSET = 2
 UNIVERSITY = 228, 30
+CHIP_UL = 44, 75
+CHIP_LR = 102, 113
 
 
 def get_resized_face(face: Union[str, Path]):
@@ -60,7 +66,8 @@ def add_text(image: Image, col1: str, col2: str, col3: str, name: str):
                  fill=(0, 0, 0),
                  font=second_font,
                  align='center')
-    image.show()
+    # image.show()
+    return image
 
 
 def add_university(image: Image):
@@ -75,12 +82,20 @@ def add_university(image: Image):
     return image
 
 
+def add_chip(image: Image):
+    chip = Image.open(CHIP_IMAGE)
+    chip = chip.resize((CHIP_LR[0] - CHIP_UL[0], CHIP_LR[1] - CHIP_UL[1]))
+    image.paste(chip, CHIP_UL)
+    image.show()
+
+
 if __name__ == '__main__':
     # paste_in_image(SAMPLE, SAMPLE_FACE)
-    add_text(
+    _im = add_text(
         paste_in_image(SAMPLE, SAMPLE_FACE),
         'Yo',
         'What\'s Up',
         'wrehfghjfghgf',
         'Ktos napewno'
     )
+    add_chip(_im)
