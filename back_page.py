@@ -55,4 +55,5 @@ def back_page(image: Union[str, Path],
 
 if __name__ == '__main__':
     # place_sticker(SAMPLE, SAMPLE_STICKER, 1, 2)
-    back_page(SAMPLE, 5 * [SAMPLE_STICKER])
+    _im = back_page(SAMPLE, 15 * [SAMPLE_STICKER])
+    _im.show()

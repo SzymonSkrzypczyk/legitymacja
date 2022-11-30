@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 """
 Punkt (0, 0) Gorny Lewy Róg!!!
-DO ZROBIENIA: ![](images/tyl_legitka.jpeg)
+DO ZROBIENIA: !
     1) zmienic rozmiar V
     2) dopasowac obrazek V
     3) zrobic napisy V
