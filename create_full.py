@@ -36,10 +36,14 @@ def main(front_image: Union[str, Path],
          released: str,
          album: str,
          pesel: str,
-         name: str):
+         name: str,
+         save: Union[str, Path] = None):
     front = front_page(front_image, face_photo, released, album, pesel, name)
     back = back_page(back_image, stickers)
     image = _merge_photos(front, back)
+    if save is not None:
+        path = Path(save)
+        image.save(path)
     return image
 
 
