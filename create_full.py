@@ -7,6 +7,7 @@ from front_page import front_page
 Do zrobienia
 1) zmienic nazwe argumentow V
 2) napisac dokumentacje X
+3) sprawdzenie opcji zapisu X
 """
 SAMPLE_FRONT = Path(__file__).parent / 'images' / 'legitymacja_wzor.jpg'
 SAMPLE_BACK = Path(__file__).parent / 'images' / 'tyl_legitka.jpeg'
