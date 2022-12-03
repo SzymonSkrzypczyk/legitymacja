@@ -5,7 +5,7 @@ from back_page import back_page
 from front_page import front_page
 """
 Do zrobienia
-1) zmienic nazwe argumentow X
+1) zmienic nazwe argumentow V
 2) napisac dokumentacje X
 """
 SAMPLE_FRONT = Path(__file__).parent / 'images' / 'legitymacja_wzor.jpg'
@@ -33,18 +33,18 @@ def main(front_image: Union[str, Path],
          back_image: Union[str, Path],
          face_photo: Union[str, Path],
          stickers: Union[Set[Union[str, Path]], List[Union[str, Path]]],
-         col1: str,
-         col2: str,
-         col3: str,
+         released: str,
+         album: str,
+         pesel: str,
          name: str):
-    front = front_page(front_image, face_photo, col1, col2, col3, name)
+    front = front_page(front_image, face_photo, released, album, pesel, name)
     back = back_page(back_image, stickers)
     image = _merge_photos(front, back)
-    image.show()
+    return image
 
 
 if __name__ == '__main__':
-    main(
+    _im = main(
         SAMPLE_FRONT,
         SAMPLE_BACK,
         SAMPLE_FACE,
@@ -54,3 +54,4 @@ if __name__ == '__main__':
         'col3',
         'Sample Name'
     )
+    _im.show()

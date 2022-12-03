@@ -8,8 +8,9 @@ Do zrobienia:
 2.1) dopasowanie naklejek V
 2.2) obliczanie miejsc na naklejki V
 2.3) zmiana rozmiaru naklejek V
-3) przetwarzanie wielu naklejek X
+3) przetwarzanie wielu naklejek V
 4) naprawienie ilosci rzedow i kolumn V
+5) ostateczne sprawdzenie, czy dziala
 """
 
 SAMPLE = Path(__file__).parent / 'images' / 'tyl_legitka.jpeg'
@@ -56,4 +57,4 @@ def back_page(image: Union[str, Path],
 if __name__ == '__main__':
     # place_sticker(SAMPLE, SAMPLE_STICKER, 1, 2)
     _im = back_page(SAMPLE, 15 * [SAMPLE_STICKER])
-    _im.show()
+    print(type(_im))

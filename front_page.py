@@ -14,7 +14,7 @@ DO ZROBIENIA: !
     6) dodac AGH V
     7) stale do configparsera X
     8) chip V
-    9) druga strona X
+    9) druga strona V
     10) poprawienie chipu X
 """
 config = ConfigParser()
@@ -56,13 +56,13 @@ def _paste_in_image(image: Union[str, Path], face: Union[str, Path]):
     return im1
 
 
-def _add_text(image: Image, col1: str, col2: str, col3: str, name: str):
+def _add_text(image: Image, released: str, album: str, pesel: str, name: str):
     im_draw = ImageDraw.Draw(image)
     my_font = ImageFont.truetype(str(FONT_FILE), 9)
     second_font = ImageFont.truetype(str(FONT_FILE), 12)
-    im_draw.text(COLUMN1, col1, fill=(0, 0, 0), font=my_font)
-    im_draw.text(COLUMN2, col2, fill=(0, 0, 0), font=my_font)
-    im_draw.text(COLUMN3, col3, fill=(0, 0, 0), font=my_font)
+    im_draw.text(COLUMN1, released, fill=(0, 0, 0), font=my_font)
+    im_draw.text(COLUMN2, album, fill=(0, 0, 0), font=my_font)
+    im_draw.text(COLUMN3, pesel, fill=(0, 0, 0), font=my_font)
     im_draw.text((image.size[0] // 2 - len(name) * OFFSET,
                   image.size[1] // 2 - len(name) * OFFSET),
                  '\n'.join(name.split(' ')),
@@ -116,4 +116,4 @@ if __name__ == '__main__':
         'wrehfghjfghgf',
         'Ktos napewno'
     )
-    _im.show()
+    print(type(_im))
