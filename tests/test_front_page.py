@@ -1,7 +1,7 @@
 import pytest
 from PIL import Image, JpegImagePlugin
-from front_page import (_get_resized_face, _paste_in_image, front_page, _add_university, _add_chip,
-                        _add_text, SAMPLE_FACE, SAMPLE, HEIGHT_FACE, WIDTH_FACE)
+from ..front_page import (_get_resized_face, _paste_in_image, front_page, _add_university, _add_chip,
+                          _add_text, SAMPLE_FACE, SAMPLE, HEIGHT_FACE, WIDTH_FACE)
 
 
 def test_return_front():

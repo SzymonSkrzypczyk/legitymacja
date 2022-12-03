@@ -1,7 +1,7 @@
 from pathlib import Path
 from PIL import Image, JpegImagePlugin
 import pytest
-from create_full import main, _merge_photos, _resize
+from ..create_full import main, _merge_photos, _resize
 
 
 SAMPLE_FRONT = Path(__file__).parent.parent / 'images' / 'legitymacja_wzor.jpg'

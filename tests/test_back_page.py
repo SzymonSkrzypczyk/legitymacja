@@ -1,7 +1,7 @@
 from pathlib import Path
 import pytest
 from PIL import Image, JpegImagePlugin
-from back_page import _resize_sticker, _place_sticker, back_page, STICKER_SIZE
+from ..back_page import _resize_sticker, _place_sticker, back_page, STICKER_SIZE
 
 SAMPLE = Path(__file__).parent.parent / 'images' / 'tyl_legitka.jpeg'
 SAMPLE_IMG = Image.open(SAMPLE)
