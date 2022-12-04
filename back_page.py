@@ -11,7 +11,7 @@ Do zrobienia:
 3) przetwarzanie wielu naklejek V
 4) naprawienie ilosci rzedow i kolumn V
 5) ostateczne sprawdzenie, czy dziala X
-6) Dokumentacja X
+6) Dokumentacja V
 """
 
 SAMPLE = Path(__file__).parent / 'images' / 'tyl_legitka.jpeg'
