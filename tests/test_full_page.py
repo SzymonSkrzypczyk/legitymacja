@@ -76,3 +76,20 @@ def test_merge_wrong_back():
         _merge_photos(FRONT_IMG, SAMPLE_BACK)
         assert True
 
+
+def test_save():
+    test_file = Path(__file__).parent / 'test.png'
+    main(
+        SAMPLE_FRONT,
+        SAMPLE_BACK,
+        SAMPLE_FACE,
+        9 * [SAMPLE_STICKER],
+        'COL1',
+        'COL2',
+        'COL3',
+        'NAME',
+        test_file
+    )
+    assert test_file.exists() is True
+    test_file.unlink()
+

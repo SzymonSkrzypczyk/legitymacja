@@ -16,6 +16,7 @@ DO ZROBIENIA: !
     8) chip V
     9) druga strona V
     10) poprawienie chipu X
+    11) Dokumentacja X
 """
 config = ConfigParser()
 config.read(Path(__file__).parent / 'constants.ini')
