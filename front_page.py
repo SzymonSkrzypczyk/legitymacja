@@ -34,6 +34,7 @@ IMAGE_FIELD_LL = 281, 115 + HEIGHT_FACE
 IMAGE_FIELD_UR = 281 + WIDTH_FACE, 115
 IMAGE_FIELD_LR = 281 + WIDTH_FACE, 115 + HEIGHT_FACE
 OFFSET = 2
+DEFAULT_UNIVERSITY = 'Akademia Górniczo-Hutnicza\nim. St. Staszica\nw Krakowie'
 UNIVERSITY = 228, 30
 CHIP_UL = 44, 75
 CHIP_LR = 102, 113
@@ -43,13 +44,28 @@ class NotAFileError(FileExistsError):
     ...
 
 
-def _get_resized_face(face: Union[str, Path]):
+def _get_resized_face(face: Union[str, Path]) -> Image.Image:
+    """Resizes The Face Image To The Default Size(100x124)
+
+    Args:
+        face (Union[str, Path]): The Face
+    Returns:
+        Image.Image: A Resized Face
+    """
     face = Path(face)
     im = Image.open(face)
     return im.resize((WIDTH_FACE, HEIGHT_FACE))
 
 
-def _paste_in_image(image: Union[str, Path], face: Union[str, Path]):
+def _paste_in_image(image: Union[str, Path], face: Union[str, Path]) -> Image.Image:
+    """Pastes In An Image Of A Face
+
+    Args:
+        image (Union[str, Path]): The ID's Front Page
+        face (Union[str, Path]): The Face
+    Returns:
+        Image.Image: The ID With A Pasted Face
+    """
     image1 = Path(image)
     im1 = Image.open(image1)
     im2 = _get_resized_face(Path(face))
@@ -57,7 +73,18 @@ def _paste_in_image(image: Union[str, Path], face: Union[str, Path]):
     return im1
 
 
-def _add_text(image: Image, released: str, album: str, pesel: str, name: str):
+def _add_text(image: Image, released: str, album: str, pesel: str, name: str) -> Image.Image:
+    """Adds Text To The ID Image
+
+    Args:
+        image (Image.Image): The ID's Front Page
+        released: (str): Date Of Releasing The ID
+        album: (str): ID Number Of The Student
+        pesel: (str): Polish Pesel Number
+        name: (str): Student's Name
+    Returns:
+        Image.Image: The ID's Front Page With Text
+    """
     im_draw = ImageDraw.Draw(image)
     my_font = ImageFont.truetype(str(FONT_FILE), 9)
     second_font = ImageFont.truetype(str(FONT_FILE), 12)
@@ -74,12 +101,17 @@ def _add_text(image: Image, released: str, album: str, pesel: str, name: str):
     return image
 
 
-def _add_university(image: Image):
+def _add_university(image: Image, university: str = DEFAULT_UNIVERSITY) -> Image.Image:
+    """Adds An University To The ID
+    Args:
+        image (Image.Image): The ID's Front Page
+    Returns:
+        Image.Image: The ID's Front Page With An University
+    """
     im_draw = ImageDraw.Draw(image)
     my_font = ImageFont.truetype(str(BOLD_FONT_FILE), 9)
-    text = 'Akademia Górniczo-Hutnicza\nim. St. Staszica\nw Krakowie'
-    im_draw.text((UNIVERSITY[0] - len(text), UNIVERSITY[1]),
-                 text,
+    im_draw.text((UNIVERSITY[0] - len(university), UNIVERSITY[1]),
+                 university,
                  fill=(0, 0, 0),
                  font=my_font,
                  align='right')
@@ -87,13 +119,31 @@ def _add_university(image: Image):
 
 
 def _add_chip(image: Image):
+    """Adds A Chip To The ID
+    Args:
+        image (Image.Image): The ID's Front Page
+    Returns:
+        Image.Image: The ID With A Chip
+    """
     chip = Image.open(CHIP_IMAGE)
     chip = chip.resize((CHIP_LR[0] - CHIP_UL[0], CHIP_LR[1] - CHIP_UL[1]))
     image.paste(chip, CHIP_UL)
     return image
 
 
-def front_page(image: Union[str, Path], face: Union[str, Path], col1: str, col2: str, col3: str, name: str):
+def front_page(image: Union[str, Path], face: Union[str, Path], released: str, album: str, pesel: str, name: str):
+    """Generates The Front Page Of The ID
+
+    Args:
+        image (Union[str, Path]): The Front Page OF The ID
+        face (Union[str, Path]): A Face To Be Used In The ID
+        released: (str): Date Of Releasing The ID
+        album: (str): ID Number Of The Student
+        pesel: (str): Polish Pesel Number
+        name: (str): Student's Name
+    Returns:
+        Image.Image: The Complete Front Page Of The ID
+    """
     image = Path(image)
     face = Path(face)
     if not image.is_file():
@@ -103,7 +153,7 @@ def front_page(image: Union[str, Path], face: Union[str, Path], col1: str, col2:
     image = _paste_in_image(image, face)
     image = _add_university(image)
     image = _add_chip(image)
-    image = _add_text(image, col1, col2, col3, name)
+    image = _add_text(image, released, album, pesel, name)
     return image
 
 
@@ -117,4 +167,4 @@ if __name__ == '__main__':
         'wrehfghjfghgf',
         'Ktos napewno'
     )
-    print(type(_im))
+    _im.show()
