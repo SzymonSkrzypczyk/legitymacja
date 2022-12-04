@@ -16,7 +16,7 @@ DO ZROBIENIA: !
     8) chip V
     9) druga strona V
     10) poprawienie chipu X
-    11) Dokumentacja X
+    11) Dokumentacja V
 """
 config = ConfigParser()
 config.read(Path(__file__).parent / 'constants.ini')
@@ -131,7 +131,10 @@ def _add_chip(image: Image):
     return image
 
 
-def front_page(image: Union[str, Path], face: Union[str, Path], released: str, album: str, pesel: str, name: str):
+def front_page(image: Union[str, Path],
+               face: Union[str, Path],
+               released: str, album: str,
+               pesel: str, name: str) -> Image.Image:
     """Generates The Front Page Of The ID
 
     Args:

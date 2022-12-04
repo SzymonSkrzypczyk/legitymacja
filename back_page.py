@@ -10,7 +10,8 @@ Do zrobienia:
 2.3) zmiana rozmiaru naklejek V
 3) przetwarzanie wielu naklejek V
 4) naprawienie ilosci rzedow i kolumn V
-5) ostateczne sprawdzenie, czy dziala
+5) ostateczne sprawdzenie, czy dziala X
+6) Dokumentacja X
 """
 
 SAMPLE = Path(__file__).parent / 'images' / 'tyl_legitka.jpeg'
@@ -21,6 +22,13 @@ FIELD_X_OFFSET, FIELD_Y_OFFSET = 66, 57
 
 
 def _resize_sticker(sticker: Union[str, Path]):
+    """Resizes A Given Sticker (46x41)
+
+    Args:
+        sticker (Union[str, Path]): A Sticker To Be Resized
+    Returns:
+        Image.Image: The Resized Image
+    """
     sticker = Path(sticker)
     im = Image.open(sticker)
     im = im.resize(STICKER_SIZE)
@@ -28,6 +36,16 @@ def _resize_sticker(sticker: Union[str, Path]):
 
 
 def _place_sticker(im: Image, sticker: Union[str, Path], row: int = 0, col: int = 0):
+    """Places A Sticker In A Selected Spot Of The ID By An Offset (X_offset = 66, Y_offset = 57)
+
+    Args:
+        im (Image.Image): The Back Page Of The ID
+        sticker (Union[str, Path]): A Sticker To Be Inserted
+        row (int): A Row For The Calculation Of The Final Y Offset
+        col (int): A Col For The Calculation Of The Final X Offset
+    Returns:
+        Image.Image: The Back Page With The Inserted Sticker
+    """
     sticker = Path(sticker)
     sticker = _resize_sticker(sticker)
     # sticker.show()
@@ -40,6 +58,14 @@ def _place_sticker(im: Image, sticker: Union[str, Path], row: int = 0, col: int 
 def back_page(image: Union[str, Path],
               stickers: Union[Set[Union[str, Path]], List[Union[str, Path]]],
               ):
+    """Generates The Back Page
+
+    Args:
+        image (Union[str, Path]): The Back Page Of The ID
+        stickers (Union[Set[Union[str, Path]], List[Union[str, Path]]]): A Set Or A List Of Stickers To Be Inserted
+    Returns:
+        Image.Image: The Complete Back Page Of The ID
+    """
     image = Path(image)
     image = Image.open(image)
     row = 0
