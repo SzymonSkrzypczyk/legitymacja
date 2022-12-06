@@ -11,7 +11,7 @@ Do zrobienia:
 2.3) zmiana rozmiaru naklejek V
 3) przetwarzanie wielu naklejek V
 4) naprawienie ilosci rzedow i kolumn V
-5) ostateczne sprawdzenie, czy dziala X
+5) ostateczne sprawdzenie, czy dziala V
 6) Dokumentacja V
 """
 
@@ -54,7 +54,7 @@ def _place_sticker(im: Image, sticker: Union[str, Path], row: int = 0, col: int 
     # sticker.show()
     im.paste(sticker,
              (FIRST_FIELD_UL[0] + (col % 3) * FIELD_X_OFFSET,
-              FIRST_FIELD_UL[1] + (row % 3) * FIELD_Y_OFFSET))
+              FIRST_FIELD_UL[1] + (row % 4) * FIELD_Y_OFFSET))
     return im
 
 
@@ -85,5 +85,5 @@ def back_page(image: Union[str, Path],
 
 if __name__ == '__main__':
     # place_sticker(SAMPLE, SAMPLE_STICKER, 1, 2)
-    _im = back_page(SAMPLE, 15 * [SAMPLE_STICKER])
+    _im = back_page(SAMPLE, 11 * [SAMPLE_STICKER])
     _im.show()

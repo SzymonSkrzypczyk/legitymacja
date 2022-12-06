@@ -12,15 +12,16 @@ DO ZROBIENIA: !
     4) ustawic imie i nazwisko V
     5) dopracowac obraz V
     6) dodac AGH V
-    7) stale do TOML X
+    7) stale do TOML V
     8) chip V
     9) druga strona V
-    10) poprawienie chipu X
+    10) poprawienie chipu V
     11) Dokumentacja V
 """
 SAMPLE = Path(__file__).parent / 'images' / 'legitymacja_wzor.jpg'
 SAMPLE_FACE = Path(__file__).parent / 'images' / 'escobar.jpg'
-CHIP_IMAGE = Path(__file__).parent / 'images' / 'chip.png'
+# CHIP_IMAGE = Path(__file__).parent / 'images' / 'chip.png'
+CHIP_IMAGE = Path(__file__).parent / 'chip.png'
 FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-VariableFont_wght.ttf'
 BOLD_FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-Bold.ttf'
 with (Path(__file__).parent / 'constants.toml').open(mode='rb') as f:
