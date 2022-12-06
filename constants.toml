@@ -1,0 +1,35 @@
+[columns]
+column1.x = 79
+column1.y = 174
+column2.x = 79
+column2.y = 186
+column3.x = 79
+column3.y = 199
+[image_field]
+image_field_ul.x = 281
+image_field_ul.y = 115
+image_field_ll.x = 281
+image_field_ll.y = 115
+image_field_lr.x = 281
+image_field_lr.y = 115
+image_field_ur.x = 381
+image_field_ur.y = 115
+[other]
+height_face = 124
+width_face = 100
+offset = 2
+default_university = "Akademia Górniczo-Hutnicza\nim. St. Staszica\nw Krakowie"
+university.x = 228
+university.y = 30
+[chip]
+chip_ul.x = 44
+chip_ul.y = 75
+chip_lr.x = 102
+chip_lr.y = 113
+[sticker]
+first_field_ul.x = 33
+first_field_ul.y = 37
+sticker_size.x = 46
+sticker_size.y = 41
+field_x_offset = 66
+field_y_offset = 57

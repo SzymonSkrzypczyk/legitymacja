@@ -1,6 +1,6 @@
 from typing import Union
-from configparser import ConfigParser
 from pathlib import Path
+from tomli import load
 from PIL import Image, ImageDraw, ImageFont
 
 """
@@ -12,32 +12,32 @@ DO ZROBIENIA: !
     4) ustawic imie i nazwisko V
     5) dopracowac obraz V
     6) dodac AGH V
-    7) stale do configparsera X
+    7) stale do TOML X
     8) chip V
     9) druga strona V
     10) poprawienie chipu X
     11) Dokumentacja V
 """
-config = ConfigParser()
-config.read(Path(__file__).parent / 'constants.ini')
 SAMPLE = Path(__file__).parent / 'images' / 'legitymacja_wzor.jpg'
 SAMPLE_FACE = Path(__file__).parent / 'images' / 'escobar.jpg'
 CHIP_IMAGE = Path(__file__).parent / 'images' / 'chip.png'
 FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-VariableFont_wght.ttf'
 BOLD_FONT_FILE = Path(__file__).parent / 'ArchivoNarrow-Bold.ttf'
-HEIGHT_FACE, WIDTH_FACE = 124, 100
-COLUMN1 = 79, 173
-COLUMN2 = 79, 186
-COLUMN3 = 79, 200
-IMAGE_FIELD_UL = 281, 115
-IMAGE_FIELD_LL = 281, 115 + HEIGHT_FACE
-IMAGE_FIELD_UR = 281 + WIDTH_FACE, 115
-IMAGE_FIELD_LR = 281 + WIDTH_FACE, 115 + HEIGHT_FACE
-OFFSET = 2
-DEFAULT_UNIVERSITY = 'Akademia Górniczo-Hutnicza\nim. St. Staszica\nw Krakowie'
-UNIVERSITY = 228, 30
-CHIP_UL = 44, 75
-CHIP_LR = 102, 113
+with (Path(__file__).parent / 'constants.toml').open(mode='rb') as f:
+    CONSTANTS = load(f)
+HEIGHT_FACE, WIDTH_FACE = CONSTANTS['other']['height_face'], CONSTANTS['other']['width_face']
+COLUMN1 = CONSTANTS['columns']['column1']['x'], CONSTANTS['columns']['column1']['y']
+COLUMN2 = CONSTANTS['columns']['column2']['x'], CONSTANTS['columns']['column2']['y']
+COLUMN3 = CONSTANTS['columns']['column3']['x'], CONSTANTS['columns']['column3']['y']
+IMAGE_FIELD_UL = CONSTANTS['image_field']['image_field_ul']['x'], CONSTANTS['image_field']['image_field_ul']['y']
+IMAGE_FIELD_LL = CONSTANTS['image_field']['image_field_ll']['x'], CONSTANTS['image_field']['image_field_ll']['y']
+IMAGE_FIELD_UR = CONSTANTS['image_field']['image_field_ur']['x'], CONSTANTS['image_field']['image_field_ur']['y']
+IMAGE_FIELD_LR = CONSTANTS['image_field']['image_field_lr']['x'], CONSTANTS['image_field']['image_field_lr']['y']
+OFFSET = CONSTANTS['other']['offset']
+DEFAULT_UNIVERSITY = CONSTANTS['other']['default_university']
+UNIVERSITY = CONSTANTS['other']['university']['x'], CONSTANTS['other']['university']['y']
+CHIP_UL = CONSTANTS['chip']['chip_ul']['x'], CONSTANTS['chip']['chip_ul']['y']
+CHIP_LR = CONSTANTS['chip']['chip_lr']['x'], CONSTANTS['chip']['chip_lr']['y']
 
 
 class NotAFileError(FileExistsError):

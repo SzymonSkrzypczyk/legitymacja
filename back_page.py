@@ -1,6 +1,7 @@
 from typing import Union, Set, List
 from pathlib import Path
 from PIL import Image
+from tomli import load
 
 """
 Do zrobienia:
@@ -16,9 +17,11 @@ Do zrobienia:
 
 SAMPLE = Path(__file__).parent / 'images' / 'tyl_legitka.jpeg'
 SAMPLE_STICKER = Path(__file__).parent / 'images' / 'naklejka.png'
-FIRST_FIELD_UL = 33, 37
-STICKER_SIZE = 46, 41
-FIELD_X_OFFSET, FIELD_Y_OFFSET = 66, 57
+with (Path(__file__).parent / 'constants.toml').open(mode='rb') as f:
+    CONSTANTS = load(f)
+FIRST_FIELD_UL = CONSTANTS['sticker']['first_field_ul']['x'], CONSTANTS['sticker']['first_field_ul']['y']
+STICKER_SIZE = CONSTANTS['sticker']['sticker_size']['x'], CONSTANTS['sticker']['sticker_size']['y']
+FIELD_X_OFFSET, FIELD_Y_OFFSET = CONSTANTS['sticker']['field_x_offset'], CONSTANTS['sticker']['field_y_offset']
 
 
 def _resize_sticker(sticker: Union[str, Path]):
@@ -83,4 +86,4 @@ def back_page(image: Union[str, Path],
 if __name__ == '__main__':
     # place_sticker(SAMPLE, SAMPLE_STICKER, 1, 2)
     _im = back_page(SAMPLE, 15 * [SAMPLE_STICKER])
-    print(type(_im))
+    _im.show()

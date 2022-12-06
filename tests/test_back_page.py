@@ -16,7 +16,7 @@ def test_return_resize_sticker():
 
 def test_return_place_sticker():
     with pytest.raises(AttributeError):
-        _place_sticker(SAMPLE, SAMPLE_STICKER)
+        _place_sticker(SAMPLE_IMG, SAMPLE_STICKER)
         assert True
     val = _place_sticker(SAMPLE_IMG, SAMPLE_STICKER)
     assert type(val) == JpegImagePlugin.JpegImageFile
