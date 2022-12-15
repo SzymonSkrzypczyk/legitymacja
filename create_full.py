@@ -3,6 +3,8 @@ from pathlib import Path
 from PIL import Image
 from back_page import back_page
 from front_page import front_page
+
+__all__ = ['main']
 """
 Do zrobienia
 1) zmienic nazwe argumentow V

@@ -2,7 +2,7 @@ from typing import Union, Set, List
 from pathlib import Path
 from PIL import Image
 from tomli import load
-
+__all__ = ['back_page']
 """
 Do zrobienia:
 1) okreslenie lokalizacji pol na naklejki V

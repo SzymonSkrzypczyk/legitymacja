@@ -2,7 +2,7 @@ from typing import Union
 from pathlib import Path
 from tomli import load
 from PIL import Image, ImageDraw, ImageFont
-
+__all__ = ['front_page']
 """
 Punkt (0, 0) Gorny Lewy Róg!!!
 DO ZROBIENIA: !
