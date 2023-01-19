@@ -28,3 +28,6 @@ _im.show()
 1. test_full_page.py
 2. test_front_page.py
 3. test_back_page.py
+### Zastosowanie
+Pakiet ten pozwala stworzyc przykładową dwustronna legitymacje studencką
+dla dowolnej uczelni(domyślnie dla AGH)

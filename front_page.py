@@ -2,7 +2,7 @@ from typing import Union
 from pathlib import Path
 from tomli import load
 from PIL import Image, ImageDraw, ImageFont
-__all__ = ['front_page']
+__all__ = ['front_page', 'DEFAULT_UNIVERSITY']
 """
 Punkt (0, 0) Gorny Lewy Róg!!!
 DO ZROBIENIA: !
@@ -134,7 +134,8 @@ def _add_chip(image: Image):
 def front_page(image: Union[str, Path],
                face: Union[str, Path],
                released: str, album: str,
-               pesel: str, name: str) -> Image.Image:
+               pesel: str, name: str,
+               university: str = DEFAULT_UNIVERSITY) -> Image.Image:
     """Generates The Front Page Of The ID
 
     Args:
@@ -144,6 +145,7 @@ def front_page(image: Union[str, Path],
         album: (str): ID Number Of The Student
         pesel: (str): Polish Pesel Number
         name: (str): Student's Name
+        university: (str): Student's University
     Returns:
         Image.Image: The Complete Front Page Of The ID
     """
@@ -154,7 +156,7 @@ def front_page(image: Union[str, Path],
     if not face.is_file():
         raise NotAFileError('Face is not a file') from None
     image = _paste_in_image(image, face)
-    image = _add_university(image)
+    image = _add_university(image, university)
     image = _add_chip(image)
     image = _add_text(image, released, album, pesel, name)
     return image

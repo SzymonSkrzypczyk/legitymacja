@@ -2,7 +2,7 @@ from typing import Union, List, Set, Tuple
 from pathlib import Path
 from PIL import Image
 from back_page import back_page
-from front_page import front_page
+from front_page import front_page, DEFAULT_UNIVERSITY
 
 __all__ = ['main']
 """
@@ -56,6 +56,7 @@ def main(front_image: Union[str, Path],
          album: str,
          pesel: str,
          name: str,
+         university: str = DEFAULT_UNIVERSITY,
          save: Union[str, Path] = None) -> Image.Image:
     """Generates A Student's ID Using Given Params
 
@@ -68,6 +69,7 @@ def main(front_image: Union[str, Path],
         album: (str): ID Number Of The Student
         pesel: (str): Polish Pesel Number
         name: (str): Student's Name
+        university (str): Student's University
         save: (Union[str, Path]): If Given A Path Saves The Generated ID To The Given Location
     Returns:
         Image.Image: The Final Student's ID
